@@ -24,7 +24,8 @@
 
 
 
-    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+    <a href="{{ route('logout') }}"
+        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
         {{ __('Logout') }}
     </a>
@@ -33,7 +34,8 @@
         @csrf
     </form>
 
-
+    <a href="{{ route('admin-create') }}">Add country</a>
+    <a href="">Add hotel</a>
 
 
 

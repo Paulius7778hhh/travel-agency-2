@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.create');
     }
 
     /**
@@ -34,6 +34,26 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {
+        //
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createhotel()
+    {
+        return view('back.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storehotel(Request $request)
     {
         //
     }
