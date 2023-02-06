@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('title', 40)->unique();
-            $table->dateTime('date');
+            $table->unsignedBigInteger('date');
             $table->timestamps();
         });
     }

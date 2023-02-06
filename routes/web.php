@@ -29,6 +29,8 @@ Route::prefix('admin/welcome')->name('admin-')->group(function () {
     Route::post('/store', [AC::class, 'store'])->name('store');
     Route::get('/addhotel', [AC::class, 'createhotel'])->name('createhotel');
     Route::post('/storehotel', [AC::class, 'storehotel'])->name('storehotel');
+    Route::get('/countrylist', [AC::class, 'show'])->name('clist');
+    Route::get('/hotellist', [AC::class, 'showhotel'])->name('hlist');
     Route::get('/edit/{admin}', [A::class, 'edit'])->name('edit');
     Route::put('/edit/{admin}', [A::class, 'update'])->name('update');
     Route::delete('/delete/{admin}', [A::class, 'destroy'])->name('delete');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\admin;
 use Illuminate\Http\Request;
+use App\Models\country;
+use App\Models\hotels;
 
 class AdminController extends Controller
 {
@@ -35,16 +37,21 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $country = new country;
+        $country->title = $request->country;
+        $country->date = $request->data;
+        $country->save();
+        return redirect()->route('admin-welcome');
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createhotel()
+    public function createhotel(country $country)
     {
-        return view('back.create');
+        $country = country::all()->sortBy('title');
+        return view('back.addhotel', ['country' => $country]);
     }
 
     /**
@@ -55,7 +62,14 @@ class AdminController extends Controller
      */
     public function storehotel(Request $request)
     {
-        //
+        $hotels = new hotels;
+        $hotels->title = $request->hotel;
+        $hotels->picture = $request->hotel_picture;
+        $hotels->trip_length = $request->trip_time;
+        $hotels->country_id = $request->nation_id;
+        $hotels->price = $request->trip_price;
+        $hotels->save();
+        return redirect()->route('admin-welcome');
     }
 
     /**
@@ -64,9 +78,16 @@ class AdminController extends Controller
      * @param  \App\Models\admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(admin $admin)
+    public function show(country $country)
     {
-        //
+        $country = country::all()->sortBy('title');
+        return view('back.countrylist', ['country' => $country]);
+    }
+    public function showhotel(hotels $hotels, country $country)
+    {
+        $hotels = hotels::all()->sortBy('title');
+        $country = country::all()->sortBy('title');
+        return view('back.hotellist', ['hotels' => $hotels, 'country' => $country]);
     }
 
     /**

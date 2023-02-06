@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title', 50)->unique();
             $table->string('picture', 600);
             $table->smallInteger('trip_length');
+            $table->smallInteger('price')->unsigned();
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries');
             $table->timestamps();
