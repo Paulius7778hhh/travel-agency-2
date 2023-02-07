@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController as AC;
+use App\Http\Controllers\HotelsController as H;
+use App\Http\Controllers\CountryController as C;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,10 @@ Route::prefix('admin/welcome')->name('admin-')->group(function () {
     Route::post('/storehotel', [AC::class, 'storehotel'])->name('storehotel');
     Route::get('/countrylist', [AC::class, 'show'])->name('clist');
     Route::get('/hotellist', [AC::class, 'showhotel'])->name('hlist');
-    Route::get('/edit/{admin}', [A::class, 'edit'])->name('edit');
-    Route::put('/edit/{admin}', [A::class, 'update'])->name('update');
-    Route::delete('/delete/{admin}', [A::class, 'destroy'])->name('delete');
+    Route::get('/edit/{hotels}', [H::class, 'edit'])->name('edit');
+    Route::put('/update/{hotels}', [H::class, 'update'])->name('update');
+    Route::get('/editcountry/{country}', [C::class, 'edit'])->name('cedit');
+    Route::put('/updatecountry/{country}', [C::class, 'update'])->name('cupdate');
+    Route::delete('/delete/{hotels}', [H::class, 'destroy'])->name('hdelete');
+    Route::delete('/deletecountry/{country}', [C::class, 'destroy'])->name('cdelete');
 });

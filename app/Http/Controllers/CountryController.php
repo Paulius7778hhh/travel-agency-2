@@ -57,7 +57,7 @@ class CountryController extends Controller
      */
     public function edit(country $country)
     {
-        //
+        return view('back.editcountry', ['country' => $country]);
     }
 
     /**
@@ -69,7 +69,10 @@ class CountryController extends Controller
      */
     public function update(Request $request, country $country)
     {
-        //
+        $country->title = $request->edit_country;
+        $country->date = $request->edit_data;
+        $country->save();
+        return redirect()->route('admin-welcome');
     }
 
     /**
@@ -80,6 +83,11 @@ class CountryController extends Controller
      */
     public function destroy(country $country)
     {
-        //
+        if (!$country->hotels()->count()) {
+            $country->delete();
+            return redirect()->back();
+        } else {
+            return redirect()->back()->withErrors('dude wtf?');
+        }
     }
 }

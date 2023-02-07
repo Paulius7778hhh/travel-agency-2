@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\hotels;
+use App\Models\country;
 
 
 class HotelsController extends Controller
@@ -58,7 +59,11 @@ class HotelsController extends Controller
      */
     public function edit(hotels $hotels)
     {
-        //
+        $country = country::all();
+        return view('back.edithotel', [
+            'hotels' => $hotels,
+            'country' => $country
+        ]);
     }
 
     /**
@@ -70,7 +75,13 @@ class HotelsController extends Controller
      */
     public function update(Request $request, hotels $hotels)
     {
-        //
+        $hotels->title = $request->edit_hotel;
+        $hotels->picture = $request->edit_hotel_picture;
+        $hotels->trip_length = $request->edit_trip_time;
+        $hotels->country_id = $request->edit_nation_id;
+        $hotels->price = $request->edit_trip_price;
+        $hotels->save();
+        return redirect()->route('admin-welcome');
     }
 
     /**
@@ -81,6 +92,7 @@ class HotelsController extends Controller
      */
     public function destroy(hotels $hotels)
     {
-        //
+        $hotels->delete();
+        return redirect()->back();
     }
 }

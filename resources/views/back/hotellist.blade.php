@@ -3,7 +3,7 @@
 @section('content')
 
 
-<ul>
+<ul class="list-group">
 
 
 
@@ -12,7 +12,17 @@
 
 
 
-    <li>{{$hotel->title}} {{$hotel->picture}} {{$hotel->trip_length}} {{$hotel->country->title}} {{$hotel->price}}</li>
+    <li class="list-group-item">From: {{$hotel->country->title}}<br> Hotel: {{$hotel->title}} <br>Picture of hotel: {{$hotel->picture}}<br> Trip length: {{$hotel->trip_length}}<br> Price: {{$hotel->price}} EUR</li>
+
+    <form action="{{route('admin-hdelete',$hotel)}}" method="post"><button type="submit">delete</button>@method('delete')@csrf</form>
+    <form action="{{route('admin-edit',$hotel)}}" method="get"><button type="submit">edit</button>@csrf</form>
+
+
+
+
+
+
+
 
 
 
