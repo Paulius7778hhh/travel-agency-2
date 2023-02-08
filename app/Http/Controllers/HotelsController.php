@@ -76,7 +76,23 @@ class HotelsController extends Controller
     public function update(Request $request, hotels $hotels)
     {
         $hotels->title = $request->edit_hotel;
-        $hotels->picture = $request->edit_hotel_picture;
+
+        if ($request->file('hotel_picture')) {
+            $picture = $request->file('hotel_picture');
+            $ext = $picture->getClientOriginalExtension();
+
+            $name = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $file = $name . '-' . rand(100000, 999999) . '.' . $ext;
+            //$manager = new ImageManager(['driver' => 'GD']);
+
+            //$image = $manager->make($picture);
+            //$image->crop(400, 600);
+            $picture->move(public_path() . '/pictures/', $file);
+            //$picture->move(public_path() . '/pictures/' . $file);
+
+            $hotels->picture = '/pictures/' . $file;
+        }
         $hotels->trip_length = $request->edit_trip_time;
         $hotels->country_id = $request->edit_nation_id;
         $hotels->price = $request->edit_trip_price;

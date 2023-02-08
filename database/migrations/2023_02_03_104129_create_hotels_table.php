@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             $table->id();
             $table->string('title', 50)->unique();
-            $table->string('picture', 600);
+            $table->string('picture', 600)->nullable();
             $table->smallInteger('trip_length');
             $table->smallInteger('price')->unsigned();
             $table->unsignedBigInteger('country_id');

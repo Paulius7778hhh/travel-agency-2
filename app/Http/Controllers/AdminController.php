@@ -6,6 +6,7 @@ use App\Models\admin;
 use Illuminate\Http\Request;
 use App\Models\country;
 use App\Models\hotels;
+use Intervention\Image\ImageManager;
 
 class AdminController extends Controller
 {
@@ -64,7 +65,23 @@ class AdminController extends Controller
     {
         $hotels = new hotels;
         $hotels->title = $request->hotel;
-        $hotels->picture = $request->hotel_picture;
+        if ($request->file('hotel_picture')) {
+            $picture = $request->file('hotel_picture');
+            $ext = $picture->getClientOriginalExtension();
+
+            $name = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $file = $name . '-' . rand(100000, 999999) . '.' . $ext;
+            //$manager = new ImageManager(['driver' => 'GD']);
+
+            //$image = $manager->make($picture);
+            //$image->crop(400, 600);
+            $picture->move(public_path() . '/pictures/', $file);
+            //$picture->move(public_path() . '/pictures/' . $file);
+
+            $hotels->picture = '/pictures/' . $file;
+        }
+
         $hotels->trip_length = $request->trip_time;
         $hotels->country_id = $request->nation_id;
         $hotels->price = $request->trip_price;
