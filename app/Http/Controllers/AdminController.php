@@ -6,7 +6,8 @@ use App\Models\admin;
 use Illuminate\Http\Request;
 use App\Models\country;
 use App\Models\hotels;
-use Intervention\Image\ImageManager;
+use Carbon\Carbon;
+
 
 class AdminController extends Controller
 {
@@ -17,7 +18,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('back.app');
+        $title = 'Welcome';
+        return view('back.app', ['title' => $title]);
     }
 
     /**
@@ -27,7 +29,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('back.create');
+        $title = 'Add Country';
+        return view('back.create', ['title' => $title]);
     }
 
     /**
@@ -40,7 +43,8 @@ class AdminController extends Controller
     {
         $country = new country;
         $country->title = $request->country;
-        $country->date = $request->data;
+        $country->season_start = $request->s_start;
+        $country->season_end = $request->s_end;
         $country->save();
         return redirect()->route('admin-welcome');
     }
@@ -51,8 +55,9 @@ class AdminController extends Controller
      */
     public function createhotel(country $country)
     {
+        $title = 'Add Hotel';
         $country = country::all()->sortBy('title');
-        return view('back.addhotel', ['country' => $country]);
+        return view('back.addhotel', ['country' => $country, 'title' => $title]);
     }
 
     /**
@@ -72,19 +77,16 @@ class AdminController extends Controller
             $name = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
 
             $file = $name . '-' . rand(100000, 999999) . '.' . $ext;
-            //$manager = new ImageManager(['driver' => 'GD']);
 
-            //$image = $manager->make($picture);
-            //$image->crop(400, 600);
             $picture->move(public_path() . '/pictures/', $file);
             //$picture->move(public_path() . '/pictures/' . $file);
-
             $hotels->picture = '/pictures/' . $file;
         }
 
         $hotels->trip_length = $request->trip_time;
         $hotels->country_id = $request->nation_id;
         $hotels->price = $request->trip_price;
+        $hotels->description = $request->description;
         $hotels->save();
         return redirect()->route('admin-welcome');
     }
@@ -97,14 +99,16 @@ class AdminController extends Controller
      */
     public function show(country $country)
     {
+        $title = 'Countries list';
         $country = country::all()->sortBy('title');
-        return view('back.countrylist', ['country' => $country]);
+        return view('back.countrylist', ['country' => $country, 'title' => $title]);
     }
     public function showhotel(hotels $hotels, country $country)
     {
+        $title = 'Hotels list';
         $hotels = hotels::all()->sortBy('title');
         $country = country::all()->sortBy('title');
-        return view('back.hotellist', ['hotels' => $hotels, 'country' => $country]);
+        return view('back.hotellist', ['hotels' => $hotels, 'country' => $country, 'title' => $title]);
     }
 
     /**

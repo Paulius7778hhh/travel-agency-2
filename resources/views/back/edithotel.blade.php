@@ -1,7 +1,7 @@
 @extends('back.app')
 
 @section('content')
-<form class="card card-header col-md-5" action="{{ route('admin-update',$hotels) }}" method="post" enctype="multipart/form-data">
+<form class="card card-header col-md-5" style='translateX:(-50%); margin:1% 0 0 28%; ' action="{{ route('admin-update',$hotels) }}" method="post" enctype="multipart/form-data">
 
 
 
@@ -49,6 +49,10 @@
 
     <label for="edit_trip_price">price</label>
     <input type="number" name="edit_trip_price" value="{{old('edit_trip_price',$hotels->price)}}">
+    <label for="edit_description">description</label>
+
+    <textarea class="form-control" type="text" name="edit_description" cols="30" rows="5">{{old('edit_description',$hotels->description)}}</textarea>
+
     @if($hotels->picture)
 
     <div class="col-4">
@@ -59,15 +63,17 @@
     </div>
     @endif
 
-    @if($hotels->picture)
 
-    <button type="submit" class="btn btn-outline-danger" name="delete_photo" value="1">Delete Photo</button>
-    @endif
 
 
 
     <button type='submit'>edit</button>@method('put')@csrf
 </form>
+@if($hotels->picture)
+<form style='translateX:(-50%); margin:1% 0 0 28%; ' action="{{ route('admin-update',$hotels) }}" method="post"><button type="submit" class="btn btn-outline-danger" name="delete_picture" value="1">Delete Photo</button>@method('put')@csrf</form>
+
+@endif
+
 
 
 

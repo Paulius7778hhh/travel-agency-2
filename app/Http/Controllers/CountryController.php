@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\country;
+use Carbon\Carbon;
 
 class CountryController extends Controller
 {
@@ -57,7 +58,8 @@ class CountryController extends Controller
      */
     public function edit(country $country)
     {
-        return view('back.editcountry', ['country' => $country]);
+        $title = 'Edit Country';
+        return view('back.editcountry', ['country' => $country, 'title' => $title]);
     }
 
     /**
@@ -70,7 +72,8 @@ class CountryController extends Controller
     public function update(Request $request, country $country)
     {
         $country->title = $request->edit_country;
-        $country->date = $request->edit_data;
+        $country->season_start = $request->edit_s_start;
+        $country->season_end = $request->edit_s_end;
         $country->save();
         return redirect()->route('admin-welcome');
     }

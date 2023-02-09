@@ -32,6 +32,8 @@ Route::prefix('admin/welcome')->name('admin-')->group(function () {
     Route::get('/addhotel', [AC::class, 'createhotel'])->name('createhotel');
     Route::post('/storehotel', [AC::class, 'storehotel'])->name('storehotel');
     Route::get('/countrylist', [AC::class, 'show'])->name('clist');
+    Route::get('/showhotel/{hotels}', [H::class, 'show'])->name('hotel');
+    Route::put('/download/{hotels}', [H::class, 'pdf'])->name('pdf');
     Route::get('/hotellist', [AC::class, 'showhotel'])->name('hlist');
     Route::get('/edit/{hotels}', [H::class, 'edit'])->name('edit');
     Route::put('/update/{hotels}', [H::class, 'update'])->name('update');

@@ -20,11 +20,17 @@
 
 <body>
 
-    <h1 class="container-fluid">Welcome</h1>
+    <h1 class="container-fluid" style='translateX(-50%); margin:1% 0 0 44%; '>{{$title}}</h1>
 
 
 
-    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+
+
+
+    <a class="navbar-brand btn btn-info" style='translateX(-50%); margin:1% 10px 10px 2%; ' href="{{ route('logout') }}" onclick="event.preventDefault();
+
+
+
                                                      document.getElementById('logout-form').submit();">
         {{ __('Logout') }}
     </a>
@@ -41,7 +47,8 @@
         @yield('content')
     </main>
     </div>
-    <footer class="card card-header col-md-5">{{ now()->format('Y-m-d') }} {{ now()->format('H:i:s') }} {{}}</footer>
+    <footer class="card card-header col-md-5" style='translateX(-50%); margin:1% 0 0 28%; '>{{ now()->format('Y-m-d') }} {{ now()->format('H:i:s') }} {{}}</footer>
+
 
 
 

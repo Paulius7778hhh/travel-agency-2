@@ -12,7 +12,8 @@
 </div>
 @endif
 
-<ul>
+<ul style='translateX(-50%); margin:1% 0 0 28%; '>
+
     @forelse($country as $key => $nation)
 
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->smallInteger('trip_length');
             $table->smallInteger('price')->unsigned();
             $table->unsignedBigInteger('country_id');
+            $table->text('description')->nullable();
             $table->foreign('country_id')->references('id')->on('countries');
             $table->timestamps();
         });
