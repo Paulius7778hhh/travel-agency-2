@@ -17,7 +17,9 @@
     @forelse($country as $key => $nation)
 
 
-    <li>{{$nation->title}}<br> amount of hotels: {{$nation->hotels()->count()}}</li>
+    <li>{{$nation->title}}<br> amount of hotels: {{$nation->hotels()->count()}} start: {{$nation->season_start}} end: {{$nation->season_end}}</li>
+
+
 
 
     <form action="{{route('admin-cdelete',$nation)}}" method="post"><button type="submit">delete</button>@method('delete')@csrf</form>

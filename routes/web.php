@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController as AC;
 use App\Http\Controllers\HotelsController as H;
 use App\Http\Controllers\CountryController as C;
+use App\Http\Controllers\UserxpController as U;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::prefix('admin/welcome')->name('admin-')->group(function () {
     Route::post('/storehotel', [AC::class, 'storehotel'])->name('storehotel');
     Route::get('/countrylist', [AC::class, 'show'])->name('clist');
     Route::get('/showhotel/{hotels}', [H::class, 'show'])->name('hotel');
-    Route::put('/download/{hotels}', [H::class, 'pdf'])->name('pdf');
+    Route::get('/download/{hotels}', [H::class, 'pdf'])->name('pdf');
     Route::get('/hotellist', [AC::class, 'showhotel'])->name('hlist');
     Route::get('/edit/{hotels}', [H::class, 'edit'])->name('edit');
     Route::put('/update/{hotels}', [H::class, 'update'])->name('update');
@@ -41,4 +42,8 @@ Route::prefix('admin/welcome')->name('admin-')->group(function () {
     Route::put('/updatecountry/{country}', [C::class, 'update'])->name('cupdate');
     Route::delete('/delete/{hotels}', [H::class, 'destroy'])->name('hdelete');
     Route::delete('/deletecountry/{country}', [C::class, 'destroy'])->name('cdelete');
+});
+Route::prefix('user/welcome')->name('user-')->group(function () {
+    Route::get('/', [U::class, 'index'])->name('welcome');
+    Route::get('/offers', [U::class, 'show'])->name('market');
 });

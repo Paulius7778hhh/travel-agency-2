@@ -41,11 +41,19 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        $country = new country;
-        $country->title = $request->country;
-        $country->season_start = $request->s_start;
-        $country->season_end = $request->s_end;
-        $country->save();
+        $start = Carbon::parse($request->s_start);
+        $end = Carbon::parse($request->s_end);
+        //$diff = $start->diffInDays($end);
+        country::insert([
+            'title' => $request->country,
+            'season_start' => $start,
+            'season_end' => $end,
+        ]);
+        //$country = new country;
+        //$country->title = $request->country;
+        //$country->season_start = $request->s_start;
+        //$country->season_end = $request->s_end;
+        //$country->save();
         return redirect()->route('admin-welcome');
     }
     /**

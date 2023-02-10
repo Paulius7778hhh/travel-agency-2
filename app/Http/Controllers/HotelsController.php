@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\hotels;
 use App\Models\country;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Carbon\Carbon;
+use Intervention\Image\ImageManager as Image;
 
 class HotelsController extends Controller
 {
@@ -55,11 +56,27 @@ class HotelsController extends Controller
     }
     public function pdf(hotels $hotels)
     {
+        $hotels->title;
+        $hotels->picture;
+        $hotels->country->title;
+        $hotels->trip_length;
+        $hotels->price;
+        $hotels->description;
+        $hotels->update_at;
+        //$hotels = hotels::get();  //neveikia
+        //$country = country::get();  //neveikia
+        $pdf = Pdf::loadView('back.pdf', [
+            //'hotels' => $hotels,  //neveikia
+            //'country' => $country  //neveikia
+            'title' => $hotels->title,
+            'picture' => $hotels->picture,
+            'trip_length' => $hotels->price,
+            'description' => $hotels->description,
+            'ctitle' => $hotels->country->title,
+            'price' => $hotels->price
+        ]);
 
-        $hotels = hotels::all()->sortBy('title');
-        $country = country::all()->sortBy('title');
-        $pdf = Pdf::loadView('back.pdf', ['hotels' => $hotels, 'country' => $country]);
-        return $pdf->download($hotels->title . '.pdf');
+        return $pdf->download($hotels->title . '.' . Carbon::now() . '.pdf');
     }
 
     /**
