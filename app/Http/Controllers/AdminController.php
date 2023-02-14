@@ -43,7 +43,7 @@ class AdminController extends Controller
     {
         $start = Carbon::parse($request->s_start);
         $end = Carbon::parse($request->s_end);
-        //$diff = $start->diffInDays($end);
+        $diff = $start->diffInDays($end);
         country::insert([
             'title' => $request->country,
             'season_start' => $start,

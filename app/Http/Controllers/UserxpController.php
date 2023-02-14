@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Userxp;
 use App\Models\hotels;
 use App\Models\country;
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 
 
 class UserxpController extends Controller
@@ -89,7 +89,17 @@ class UserxpController extends Controller
     {
         //
     }
-    public function add(Request $request)
+    public function addtocart(Request $request)
     {
+        $cart = $request->session()->get('cart', []);
+        $id = (int) $request->offer;
+        $count = $request->count;
+        if (isset($cart[$id])) {
+            $cart[$id] += $count;
+        } else {
+            $cart[$id] = $count;
+        }
+        $request->session()->put('cart', $cart);
+        return redirect()->back();
     }
 }

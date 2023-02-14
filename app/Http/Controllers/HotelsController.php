@@ -54,26 +54,26 @@ class HotelsController extends Controller
         $country = country::all();
         return view('back.printhotel', ['country' => $country, 'title' => $title, 'hotels' => $hotels,]);
     }
-    public function pdf(hotels $hotels)
+    public function pdf(hotels $hotels, country $country)
     {
-        $hotels->title;
-        $hotels->picture;
-        $hotels->country->title;
-        $hotels->trip_length;
-        $hotels->price;
-        $hotels->description;
-        $hotels->update_at;
-        //$hotels = hotels::get();  //neveikia
-        //$country = country::get();  //neveikia
+        //$hotels->title;
+        //$hotels->picture;
+        //$hotels->country->title;
+        //$hotels->trip_length;
+        //$hotels->price;
+        //$hotels->description;
+        //$hotels->update_at;
+        //$hotels = hotels::all();  //neveikia
+        //$country = country::all();  //neveikia
         $pdf = Pdf::loadView('back.pdf', [
-            //'hotels' => $hotels,  //neveikia
-            //'country' => $country  //neveikia
-            'title' => $hotels->title,
-            'picture' => $hotels->picture,
-            'trip_length' => $hotels->price,
-            'description' => $hotels->description,
-            'ctitle' => $hotels->country->title,
-            'price' => $hotels->price
+            'hotels' => $hotels,  //neveikia
+            'country' => $country  //neveikia
+            //'title' => $hotels->title,
+            //'picture' => $hotels->picture,
+            //'trip_length' => $hotels->price,
+            //'description' => $hotels->description,
+            //'ctitle' => $hotels->country->title,
+            //'price' => $hotels->price
         ]);
 
         return $pdf->download($hotels->title . '.' . Carbon::now() . '.pdf');

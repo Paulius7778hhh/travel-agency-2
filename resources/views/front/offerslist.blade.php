@@ -1,9 +1,18 @@
+@inject('cart', 'App\Services\UserService')
+
 @extends('front.app')
+
 
 @section('content')
 
 
+
+{{$cart->help()}}
+
+
+
 @forelse($hotels as $key => $hotel)
+
 
 
 
@@ -12,9 +21,16 @@
 
 
 
-<form action="" method="post">Price: {{$hotel->price}} EUR<button type="submit">buy</button>@csrf</form>
+Price: {{$hotel->price}} EUR
 
-<form action="" method="post"><button type="submit">add</button>@csrf</form>
+<form action="{{route('user-addtocart',$hotel)}}" method="post">
+
+
+    <input type="number" min="1" name="count" value="1">
+    <input type="hidden" name="offer" value="{{$hotel->id}}">
+    <button type="submit">add</button>
+    @csrf
+</form>
 
 @empty
 <li></li>

@@ -1,3 +1,4 @@
+@inject('cart', 'App\Services\UserService')
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -38,7 +39,7 @@
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
-
+    <span>uzsakymu kiekis {{$cart->s}} </span> |||| <span>suma 20 eur</span>
     @include('front.menu')
 
 
