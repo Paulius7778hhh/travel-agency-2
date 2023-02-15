@@ -46,5 +46,5 @@ Route::prefix('admin/welcome')->name('admin-')->group(function () {
 Route::prefix('user/welcome')->name('user-')->group(function () {
     Route::get('/', [U::class, 'index'])->name('welcome');
     Route::get('/offers', [U::class, 'show'])->name('market');
-    Route::post('/offers/{hotels}', [U::class, 'addtocart'])->name('addtocart');
+    Route::post('/add/{hotels}', [U::class, 'addtocart'])->name('addtocart');
 });

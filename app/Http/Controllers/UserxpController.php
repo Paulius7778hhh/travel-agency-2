@@ -6,6 +6,7 @@ use App\Models\Userxp;
 use App\Models\hotels;
 use App\Models\country;
 use Illuminate\Http\Request;
+use App\Services\UserService;
 
 
 class UserxpController extends Controller
@@ -51,7 +52,7 @@ class UserxpController extends Controller
     public function show(/*Userxp $userxp*/hotels $hotels,  country $country)
     {
         $title = 'the offering';
-        $hotels = hotels::all();
+        $hotels = hotels::paginate(21);
         $country = country::all();
         return view('front.offerslist', ['hotels' => $hotels, 'country' => $country, 'title' => $title]);
     }
@@ -89,17 +90,11 @@ class UserxpController extends Controller
     {
         //
     }
-    public function addtocart(Request $request)
+    public function addtocart(Request $request, UserService $cart)
     {
-        $cart = $request->session()->get('cart', []);
-        $id = (int) $request->offer;
-        $count = $request->count;
-        if (isset($cart[$id])) {
-            $cart[$id] += $count;
-        } else {
-            $cart[$id] = $count;
-        }
-        $request->session()->put('cart', $cart);
+        $id = (int) $request->ids;
+        $count = (int) $request->count;
+        $cart->add($id, $count);
         return redirect()->back();
     }
 }

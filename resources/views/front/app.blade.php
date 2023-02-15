@@ -39,7 +39,44 @@
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
-    <span>uzsakymu kiekis {{$cart->s}} </span> |||| <span>suma 20 eur</span>
+    <span>uzsakymu kiekis {{$cart->count}}</span> ||||
+
+
+
+
+
+
+
+
+    <span style="color:red; font-size:50px;"> {{$cart->total}} EUR</span>
+    <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre></a>
+
+
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <span class="dropdown-item">
+                <ul>
+                    @forelse($cart->cartlist as $value)
+                    <div>{{$value->title}} {{$value->count}} X {{$value->sum}}</div>
+
+
+
+
+
+
+                    @empty
+
+                    @endforelse
+                </ul>
+            </span>
+        </div>
+    </li>
+
+
+
+
+
+
     @include('front.menu')
 
 

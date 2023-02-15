@@ -11,27 +11,26 @@ class UserService
     public function __construct()
     {
         $this->cart = session()->get('cart', []);
-        $ids = array_flip($this->cart);
-        $this->cartlist = hotels::whereIn('id', $ids)
-            ->get()
+        $ids = array_keys($this->cart);
+        $this->cartlist = hotels::wherein('id', $ids)->get()
             ->map(function ($hotels) {
                 $hotels->count = $this->cart[$hotels->id];
-                $hotels->sum = $hotels->count * $hotels->price;
+                $hotels->sum = $hotels->price * $hotels->count;
                 $this->total += $hotels->sum;
                 return $hotels;
             });
         $this->count = $this->cartlist->count();
     }
-    public function __get($props)
+
+    public function __get($name)
     {
-        return match ($props) {
+        return match ($name) {
             'total' => $this->total,
+            'cartlist' => $this->cartlist,
             'count' => $this->count,
-            'list' => $this->cartList,
             default => null
         };
     }
-
     public function add(int $id, int $count)
     {
         if (isset($this->cart[$id])) {
