@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminController as AC;
 use App\Http\Controllers\HotelsController as H;
 use App\Http\Controllers\CountryController as C;
 use App\Http\Controllers\UserxpController as U;
-
+use App\Services\UserService;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,4 +47,6 @@ Route::prefix('user/welcome')->name('user-')->group(function () {
     Route::get('/', [U::class, 'index'])->name('welcome');
     Route::get('/offers', [U::class, 'show'])->name('market');
     Route::post('/add/{hotels}', [U::class, 'addtocart'])->name('addtocart');
+    Route::get('/viewlist', [U::class, 'viewlist'])->name('viewlist');
+    Route::post('/viewlist/update', [U::class, 'updatecart'])->name('updatecart');
 });

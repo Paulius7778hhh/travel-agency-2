@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\hotels;
 
+
 class UserService
 {
     private $cart, $cartlist, $total = 0, $count = 0;
@@ -44,5 +45,9 @@ class UserService
     public function help()
     {
         return 'yay';
+    }
+    public function update(array $cart)
+    {
+        session()->put('cart', $cart);
     }
 }

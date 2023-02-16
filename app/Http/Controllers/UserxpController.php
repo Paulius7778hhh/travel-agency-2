@@ -97,4 +97,16 @@ class UserxpController extends Controller
         $cart->add($id, $count);
         return redirect()->back();
     }
+    public function viewlist(UserService $cart)
+    {
+        $title =  'asss';
+        return view('front.viewlist', ['title' => $title, 'cartlist' => $cart->cartlist]);
+    }
+    public function updatecart(Request $request, UserService $cart)
+    {
+        $updatecart = array_combine($request->ids ?? [], $request->count ?? []);
+        die('assclown');
+        $cart->update($updatecart);
+        return redirect()->back();
+    }
 }
