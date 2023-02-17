@@ -28,8 +28,7 @@
 
 
 
-    <a class="navbar-brand btn btn-info" style='translateX(-50%); margin:1% 10px 10px 2%; ' href="{{ route('logout') }}"
-        onclick="event.preventDefault();
+    <a class="navbar-brand btn btn-info" style='translateX(-50%); margin:1% 10px 10px 2%; ' href="{{ route('logout') }}" onclick="event.preventDefault();
 
 
 
@@ -40,7 +39,10 @@
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
-    <span>uzsakymu kiekis {{ $cart->count }}</span> ||||
+    @if($cart->count != '0' )
+
+
+    <span>uzsakymu kiekis {{ old('$cart->count',$cart->count) }}</span> ||||
 
 
 
@@ -49,20 +51,41 @@
 
 
 
-    <span style="color:red; font-size:50px;"> {{ $cart->total }} EUR</span>
+
+    <span style="color:red; font-size:50px;"> {{ old('$cart->total',$cart->total) }} EUR</span>
+
+
+
+
+
+
+
+
+
+
+
     <li class="nav-item dropdown">
-        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" v-pre></a>
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre></a>
+
+
+
+
 
 
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <span class="dropdown-item">
                 <ul>
                     @forelse($cart->cartlist as $value)
-                        <div>{{ $value->title }} {{ $value->count }} X {{ $value->price }} = {{ $value->sum }}
-                            <form action="" method="post"><button type="submit">remove</button>
-                                @method('delete')@csrf</form>
-                        </div>
+                    <div>{{ $value->title }} {{ $value->count }} X {{ $value->price }} = {{ $value->sum }}
+                        <form action="{{route('user-updatecart')}}" method="post">
+
+                            <button type="submit" name="delete" value="{{$value->id}}">delete</button>
+                            @csrf
+                        </form>
+
+                    </div>
+
+
 
 
 
@@ -78,6 +101,7 @@
         </div>
     </li>
 
+    @endif
 
 
 
@@ -92,7 +116,7 @@
     </main>
     </div>
     <footer class="card card-header col-md-5" style='translateX(-50%); margin:1% 0 0 28%; '>
-        {{ now()->format('Y-m-d') }} {{ now()->format('H:i:s') }} {{}}</footer>
+        {{ now()->format('Y-m-d') }} {{ now()->format('H:i:s') }} </footer>
 
 
 

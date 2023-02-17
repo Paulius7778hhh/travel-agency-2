@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\hotels;
 
-
 class UserService
 {
     private $cart, $cartlist, $total = 0, $count = 0;
@@ -41,13 +40,40 @@ class UserService
         }
         session()->put('cart', $this->cart);
     }
-
+    public function update(array $cart)
+    {
+        session()->put('cart', $cart);
+    }
     public function help()
     {
         return 'yay';
     }
-    public function update(array $cart)
+    public function delete(int $id)
     {
-        session()->put('cart', $cart);
+        unset($this->cart[$id]);
+        session()->put('cart', $this->cart);
+    }
+    public function order()
+    {
+        $order = (object)[];
+        $order->total = $this->total;
+        $order->hotels = [];
+        foreach ($this->cartlist as $hotel_order) {
+            $order->hotels[] = (object)[
+                'title' => $hotel_order->title,
+                'count' => $hotel_order->count,
+                'price' => $hotel_order->price,
+                'id' => $hotel_order->id,
+            ];
+        }
+        return $order;
+    }
+    public function empty()
+    {
+        session()->put('cart', []);
+        $this->total = 0;
+        $this->count = 0;
+        $this->cartlist = collect();
+        $this->cart = [];
     }
 }

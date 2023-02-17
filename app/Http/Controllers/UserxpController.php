@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Authenticate;
 use App\Models\Userxp;
 use App\Models\hotels;
 use App\Models\country;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserxpController extends Controller
@@ -99,14 +103,28 @@ class UserxpController extends Controller
     }
     public function viewlist(UserService $cart)
     {
-        $title =  'asss';
-        return view('front.viewlist', ['title' => $title, 'cartlist' => $cart->cartlist]);
+        $title =  'List review';
+        return view('front.viewlist', ['title' => $title, 'cart' => $cart->cartlist]);
     }
     public function updatecart(Request $request, UserService $cart)
     {
-        $updatecart = array_combine($request->ids ?? [], $request->count ?? []);
-        die('assclown');
-        $cart->update($updatecart);
-        return redirect()->back();
+        if ($request->delete) {
+            $cart->delete($request->delete);
+            return redirect()->back();
+        } else {
+
+            $updatecart = array_combine($request->ids ?? [], $request->count ?? []);
+            $cart->update($updatecart);
+            return redirect()->back();
+        }
+    }
+    public function makeorder(UserService $cart)
+    {
+        $order = new Order;
+        $order->user_id = Auth::user()->id;
+        $order->order_json = json_encode($cart->order());
+        $order->save();
+        $order->empty();
+        return redirect()->route('front.app');
     }
 }

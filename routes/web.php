@@ -48,5 +48,6 @@ Route::prefix('user/welcome')->name('user-')->group(function () {
     Route::get('/offers', [U::class, 'show'])->name('market');
     Route::post('/add/{hotels}', [U::class, 'addtocart'])->name('addtocart');
     Route::get('/viewlist', [U::class, 'viewlist'])->name('viewlist');
-    Route::post('/viewlist/update', [U::class, 'updatecart'])->name('updatecart');
+    Route::post('/viewlistupdate', [U::class, 'updatecart'])->name('updatecart')->middleware('roles:user|admin');
+    Route::post('/buy', [U::class, 'makeorder'])->name('purchase');
 });
