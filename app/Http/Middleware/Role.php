@@ -19,8 +19,10 @@ class Role
     public function handle(Request $request, Closure $next, $roles)
     {
         $middlewareroles = explode('|', $roles);
-        $middlewareroles = array_map(fn ($r) => User::ROLES[$r], $middlewareroles);
+        $middlewareroles = array_map(fn ($roles) => User::ROLES[$roles], $middlewareroles);
+
         $user = Auth::user();
+
         if (!$user) {
             return redirect()->route('login');
         }
