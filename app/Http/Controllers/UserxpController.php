@@ -124,7 +124,7 @@ class UserxpController extends Controller
         $order->user_id = Auth::user()->id;
         $order->order_json = json_encode($cart->order());
         $order->save();
-        $order->empty();
-        return redirect()->route('front.app');
+        $cart->empty();
+        return redirect()->route('user-viewlist');
     }
 }

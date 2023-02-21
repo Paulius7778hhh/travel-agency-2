@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController as AC;
 use App\Http\Controllers\HotelsController as H;
 use App\Http\Controllers\CountryController as C;
 use App\Http\Controllers\UserxpController as U;
+use App\Http\Controllers\OrderController as O;
 
 
 /*
@@ -26,6 +27,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/common', [AC::class, 'common'])->name('common');
 
 Route::prefix('admin/welcome')->name('admin-')->group(function () {
     Route::get('/', [AC::class, 'index'])->name('welcome')->middleware('roles:A');
@@ -51,4 +53,9 @@ Route::prefix('user/welcome')->name('user-')->group(function () {
     Route::get('/viewlist', [U::class, 'viewlist'])->name('viewlist')->middleware('roles:U|A');
     Route::post('/viewlistupdate', [U::class, 'updatecart'])->name('updatecart')->middleware('roles:U|A');
     Route::post('/buy', [U::class, 'makeorder'])->name('purchase')->middleware('roles:U|A');
+});
+Route::prefix('admin/order')->name('order-')->group(function () {
+    Route::get('/', [O::class, 'index'])->name('order-list')->middleware('roles:A');
+    Route::put('/edit/{Order}', [O::class, 'update'])->name('edit-order')->middleware('roles:A');
+    Route::delete('/delete/{Order}', [O::class, 'destroy'])->name('delete-order')->middleware('roles:A');
 });

@@ -17,8 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const ADMIN = '/admin/welcome';
-    public const USER = '/user/welcome';
+    public const COMMON = '/common';
+
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

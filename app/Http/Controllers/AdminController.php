@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\country;
 use App\Models\hotels;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -151,5 +152,13 @@ class AdminController extends Controller
     public function destroy(admin $admin)
     {
         //
+    }
+    public function common()
+    {
+        if (Auth::user()?->role == 'user') {
+            return redirect()->route('user-welcome');
+        } else {
+            return redirect()->route('admin-welcome');
+        }
     }
 }
