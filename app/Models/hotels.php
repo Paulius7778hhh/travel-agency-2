@@ -17,8 +17,8 @@ class hotels extends Model
     public function deletepic()
     {
         $pic = $this->picture;
-        if (fileExists(public_path() . $pic)) {
-            unlink(public_path() . $pic);
+        if (fileExists(public_path('pictures') . $pic)) {
+            unlink(public_path('pictures') . '/' . $pic);
         }
         $this->picture = null;
         $this->save();
