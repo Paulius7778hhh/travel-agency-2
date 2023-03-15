@@ -17,7 +17,9 @@
 
             <div>
                 @if (isset($hotel->picture))
-                    <img style="width:300px; height:auto;" src="{{ asset($hotel->picture) }}">
+                    <img style="width:300px; height:auto;" src="{{ asset('pictures/' . $hotel->picture) }}">
+                @else
+                    <img src="{{ asset('nopic.jpg') }}" height="300" width="300">
                 @endif
             </div>
             {{ $hotel->description }}

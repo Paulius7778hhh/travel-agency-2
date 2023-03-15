@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\hotels;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -14,11 +15,15 @@ class OrderController extends Controller
      */
     public function index()
     {
+
         $title = 'Order list';
-        $order = Order::orderby('created_at', 'desc')->get();
+        $order = Order::orderby('created_at', 'desc')->get()->map(function ($hotel) {
+            $hotel = json_decode($hotel->order_json);
+            return $hotel;
+        });
         return view('back.order-list', [
             'orderlist' => $order,
-            'title' => $title
+            'title' => $title,
         ]);
     }
 

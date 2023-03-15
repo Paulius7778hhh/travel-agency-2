@@ -13,7 +13,9 @@
             From: {{ $hotel->country->title }}<br> Hotel: {{ $hotel->title }}<br>Season start
             {{ $hotel->country->season_start }}<br>Season end {{ $hotel->country->season_end }}<br>
             @if (isset($hotel->picture))
-                <br> <img style="width:300px; height:auto:" src="{{ asset($hotel->picture) }}">
+                <br> <img style="width:300px; height:auto:" src="{{ asset('pictures/' . $hotel->picture) }}">
+            @else
+                <img src="{{ asset('nopic.jpg') }}" height="300" width="300">
             @endif
             <br> Trip length: {{ $hotel->trip_length }}<br>
             <textarea cols="30" rows="5" readonly>{{ $hotel->description }}</textarea>

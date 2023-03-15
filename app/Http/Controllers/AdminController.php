@@ -89,7 +89,7 @@ class AdminController extends Controller
 
             $picture->move(public_path() . '/pictures/', $file);
             //$picture->move(public_path() . '/pictures/' . $file);
-            $hotels->picture = '/pictures/' . $file;
+            $hotels->picture =  $file;
         }
 
         $hotels->trip_length = $request->trip_time;

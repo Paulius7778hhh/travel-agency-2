@@ -56,24 +56,9 @@ class HotelsController extends Controller
     }
     public function pdf(hotels $hotels, country $country)
     {
-        //$hotels->title;
-        //$hotels->picture;
-        //$hotels->country->title;
-        //$hotels->trip_length;
-        //$hotels->price;
-        //$hotels->description;
-        //$hotels->update_at;
-        //$hotels = hotels::all();  //neveikia
-        //$country = country::all();  //neveikia
         $pdf = Pdf::loadView('back.pdf', [
-            'hotels' => $hotels,  //neveikia
-            'country' => $country  //neveikia
-            //'title' => $hotels->title,
-            //'picture' => $hotels->picture,
-            //'trip_length' => $hotels->price,
-            //'description' => $hotels->description,
-            //'ctitle' => $hotels->country->title,
-            //'price' => $hotels->price
+            'hotels' => $hotels,
+            'country' => $country
         ]);
 
         return $pdf->download($hotels->title . '.' . Carbon::now() . '.pdf');
@@ -129,14 +114,14 @@ class HotelsController extends Controller
             $picture->move(public_path() . '/pictures/', $file);
             //$picture->move(public_path() . '/pictures/' . $file);
 
-            $hotels->picture = '/pictures/' . $file;
+            $hotels->picture = $file;
         }
         $hotels->trip_length = $request->edit_trip_time;
         $hotels->country_id = $request->edit_nation_id;
         $hotels->price = $request->edit_trip_price;
         $hotels->description = $request->edit_description;
         $hotels->save();
-        return redirect()->route('admin-welcome');
+        return redirect()->route('admin-hlist');
     }
 
     /**
