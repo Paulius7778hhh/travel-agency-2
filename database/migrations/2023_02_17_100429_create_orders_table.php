@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->text('order_json');
+            $table->text('order_json')->nullable();
             $table->smallInteger('status')->unsigned()->default(0);
             $table->timestamps();
         });

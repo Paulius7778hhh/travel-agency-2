@@ -56,6 +56,6 @@ Route::prefix('user/welcome')->name('user-')->group(function () {
 });
 Route::prefix('admin/order')->name('order-')->group(function () {
     Route::get('/', [O::class, 'index'])->name('order-list')->middleware('roles:A');
-    Route::put('/edit/{Order}', [O::class, 'update'])->name('edit-order')->middleware('roles:A');
-    Route::delete('/delete/{Order}', [O::class, 'destroy'])->name('delete-order')->middleware('roles:A');
+    Route::put('/edit/{Order}', [O::class, 'update'])->name('edit')->middleware('roles:A');
+    Route::delete('/delete/{Order}', [O::class, 'destroy'])->name('delete')->middleware('roles:A');
 });

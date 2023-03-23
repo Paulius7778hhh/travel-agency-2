@@ -1,59 +1,53 @@
 @extends('back.app')
 
 @section('content')
-    <ol style='translateX(-50%); margin:1% 0 0 28%; '>
-        {{--
-        @forelse($orderlist as $key => $order)
+    @if (Session::has('report'))
+        <h2 class="alert alert-success" style="font-size: 30px;">{{ Session::pull('report') }}</h2>
+    @endif
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="list-group-item" style="font-size: 30px;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-
-
-            <li>
-                {{ $order->user->name }}
-                {{ $order->user_id }}<br>
-                {{ $order->created_at }}<br>
-                
-                <br>
-                @if ($order->status == '0')
-                    <span style="background-color: red; border-style: solid 1px color black; color:aqua;"> Order Status:
-                        Vaiting for aproval</span>
-                @elseif($order->status == '1')
-                    <span style="background-color: blue; border-style: solid 1px color purple; color:gold;">Order Status:
-                        Approved</span>
-                @endif
+    <ol class="list-group">
+        @foreach ($orderlist as $key => $orders)
+            <li class="list-group-item">
+                {{ $orders->uid->name }}
             </li>
---}}
-        @forelse($orderlist as $key => $order)
+            @forelse($orders->hotel->hotels as $nrorder)
+                <li>{{ $nrorder->title }} {{ $nrorder->count }} x {{ $nrorder->price }} =
+                    {{ $nrorder->count * $nrorder->price }}</li>
 
+            @empty
+            @endforelse
+            <form action="{{ route('order-edit', $orders->id) }}" method="post">
+                <button type="submit" class="btn btn-outline-secondary">
+                    @if ($orders->status == 0)
+                        Waiting for Aproval
+                    @else
+                        Aproved
+                    @endif
+                </button>
 
-            <li>
+                @csrf
+                @method('PUT')
+            </form>
+            <form action="{{ route('order-delete', $orders->id) }}" method="post">
+                <button type="submit" class="btn btn-outline-primary">
+                    Delete
+                </button>
 
-                @forelse ($order->hotels as $key => $hotel)
-                    <ul>
-                        <li>{{ $hotel->title }}</li>
-                        <li>{{ $hotel->count }}</li>
-                        <li>{{ $hotel->price }}</li>
-                        <li>{{ $hotel->id }}</li>
-                    </ul>
-                @empty
-                    <ul>
-                        <li></li>
-                    </ul>
-
-                @endforelse
-
-                {{ $order->total }}
-            </li>
-            <form action="" method="post"><button type="submit">delete</button>@method('delete')@csrf</form>
-            <form action="" method="get"><button type="submit">deny</button>@csrf</form>
-            <form action="" method="get"><button type="submit">approve</button>@csrf</form>
-
-
-        @empty
-            <li style="list-style: none;"></li>
-
-
-
-        @endempty
-
-</ol>
+                @csrf
+                @method('delete')
+            </form>
+        @endforeach
+    </ol>
 @endsection
+{{--
+     
+    --}}

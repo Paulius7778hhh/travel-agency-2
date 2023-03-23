@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Boni',
             'email' => 'jonbovi@gmail.com',
-            'password' => Hash::make('993'),
+            'password' => Hash::make('399'),
             'role' => 'user',
         ]);
         $faker = Faker::create();
@@ -63,8 +63,7 @@ class DatabaseSeeder extends Seeder
             DB::table('users')->insert([
                 'name' => $faker->firstName(rand(0, 1) > 0 ? 'male' : 'female'),
                 'email' => $faker->unique()->email(),
-                'email_verified_at' => $faker->date(),
-                'password' => Hash::make('405wpp'),
+                'password' => Hash::make('399'),
                 'role' => 'user',
             ]);
         }
@@ -95,14 +94,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         /*
-        foreach(range(0,10) as $_){
+        foreach (range(0, 10) as $_) {
             DB::table('orders')->insert([
-                'user_id' => $faker->'',
-                'order_json' => $faker->'',
-                'status' => $faker->'',
-            'title' => $faker->'',
-            'title' => $faker->'',
-            'title' => $faker->'',
+                'user_id' => rand(3, 20),
+                'order_json' => DB::table('hotels')->get(['title' => rand(1, 40), 'price' => rand(1, 40)]),
+                'status' => 0,
             ]);
         }
         */
